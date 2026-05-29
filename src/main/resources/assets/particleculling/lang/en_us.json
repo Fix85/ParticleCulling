@@ -1,0 +1,8 @@
+{
+  "title.particleculling.config": "Particle Culling Configuration",
+  "category.particleculling.general": "Blocked Particles List",
+  "option.particleculling.block_all": "Block All Particles",
+  "option.particleculling.block_all.tooltip": "Instantly prevent all particle types from rendering.",
+  "option.particleculling.allow_all": "Allow All Particles",
+  "option.particleculling.allow_all.tooltip": "Instantly allow all particle types to render."
+}

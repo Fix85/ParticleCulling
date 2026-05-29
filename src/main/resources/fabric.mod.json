@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "particleculling",
+  "version": "${version}",
+  "name": "Particle Culling",
+  "description": "Block individual particle types via Mod Menu to boost game FPS. / Блокируйте отдельные типы частиц через Mod Menu для повышения FPS.",
+  "authors": [
+    "Fix85"
+  ],
+  "contact": {
+    "homepage": "https://modrinth.com/mod/particleculling",
+    "sources": "https://github.com/Fix85/ParticleCulling",
+    "issues": "https://github.com/Fix85/ParticleCulling/issues"
+  },
+  "license": "MIT",
+  "icon": "assets/particleculling/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "dev.fix85.particleculling.ParticleCulling"
+    ],
+    "modmenu": [
+      "dev.fix85.particleculling.ParticleCullingModMenu"
+    ]
+  },
+  "mixins": [
+    {
+      "config": "particleculling.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=0.17.3",
+    "minecraft": "~1.21.4",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}
