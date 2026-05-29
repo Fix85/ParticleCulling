@@ -14,6 +14,7 @@ public class Config {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private static Config INSTANCE;
 
+    public boolean blockAll = false;
     public Map<String, Boolean> particleStates = new HashMap<>();
 
     public static Config get() {
@@ -53,11 +54,13 @@ public class Config {
     }
 
     public boolean isParticleBlocked(String typeId) {
+        if (blockAll) {
+            return true;
+        }
         return particleStates.getOrDefault(typeId, false);
     }
 
     public void setParticleBlocked(String typeId, boolean blocked) {
         particleStates.put(typeId, blocked);
-        save();
     }
 }

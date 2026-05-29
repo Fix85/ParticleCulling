@@ -1,8 +1,6 @@
 {
   "title.particleculling.config": "Настройка Particle Culling",
-  "category.particleculling.general": "Список заблокированных частиц",
+  "category.particleculling.general": "Список частиц",
   "option.particleculling.block_all": "Заблокировать все частицы",
-  "option.particleculling.block_all.tooltip": "Мгновенно скрыть все типы частиц для максимального FPS.",
-  "option.particleculling.allow_all": "Разблокировать все частицы",
-  "option.particleculling.allow_all.tooltip": "Мгновенно включить отображение всех типов частиц."
+  "option.particleculling.block_all.tooltip": "Мгновенно скрыть все частицы в игре, игнорируя детальные переключатели ниже."
 }

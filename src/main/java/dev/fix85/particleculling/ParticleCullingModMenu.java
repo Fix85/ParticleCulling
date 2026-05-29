@@ -26,46 +26,24 @@ public class ParticleCullingModMenu implements ModMenuApi {
             ConfigCategory general = builder.getOrCreateCategory(Component.translatable("category.particleculling.general"));
             ConfigEntryBuilder entryBuilder = builder.entryBuilder();
 
+            // Master Switch to block all particles
+            general.addEntry(entryBuilder.startBooleanToggle(
+                    Component.translatable("option.particleculling.block_all"), 
+                    Config.get().blockAll
+            )
+                    .setDefaultValue(false)
+                    .setTooltip(Component.translatable("option.particleculling.block_all.tooltip"))
+                    .setSaveConsumer(newValue -> Config.get().blockAll = newValue)
+                    .build());
+
+            general.addEntry(entryBuilder.startTextDescription(Component.literal("§7--------------------------------------§r")).build());
+
             List<Map.Entry<ResourceKey<ParticleType<?>>, ParticleType<?>>> particles = new ArrayList<>(
                     BuiltInRegistries.PARTICLE_TYPE.entrySet()
             );
             particles.sort(Comparator.comparing(entry -> entry.getKey().location().getPath()));
 
-            // Button to disable (block) all particles
-            general.addEntry(entryBuilder.startTextDescription(Component.literal("§eQuick Controls / Быстрое управление:§r")).build());
-            
-            general.addEntry(entryBuilder.startBooleanToggle(
-                    Component.translatable("option.particleculling.block_all"), 
-                    false
-            )
-                    .setTooltip(Component.translatable("option.particleculling.block_all.tooltip"))
-                    .setSaveConsumer(newValue -> {
-                        if (newValue) {
-                            for (Map.Entry<ResourceKey<ParticleType<?>>, ParticleType<?>> entry : particles) {
-                                Config.get().setParticleBlocked(entry.getKey().location().toString(), true);
-                            }
-                        }
-                    })
-                    .build());
-
-            // Button to enable (allow) all particles
-            general.addEntry(entryBuilder.startBooleanToggle(
-                    Component.translatable("option.particleculling.allow_all"), 
-                    false
-            )
-                    .setTooltip(Component.translatable("option.particleculling.allow_all.tooltip"))
-                    .setSaveConsumer(newValue -> {
-                        if (newValue) {
-                            for (Map.Entry<ResourceKey<ParticleType<?>>, ParticleType<?>> entry : particles) {
-                                Config.get().setParticleBlocked(entry.getKey().location().toString(), false);
-                            }
-                        }
-                    })
-                    .build());
-
-            general.addEntry(entryBuilder.startTextDescription(Component.literal("§7--------------------------------------§r")).build());
-
-            // Individual toggles
+            // Individual toggles (these are visually evaluated at save time and disabled logically if blockAll is active)
             for (Map.Entry<ResourceKey<ParticleType<?>>, ParticleType<?>> entry : particles) {
                 String idStr = entry.getKey().location().toString();
                 String path = entry.getKey().location().getPath();
@@ -77,7 +55,7 @@ public class ParticleCullingModMenu implements ModMenuApi {
 
                 general.addEntry(entryBuilder.startBooleanToggle(
                         Component.literal(name), 
-                        Config.get().isParticleBlocked(idStr)
+                        Config.get().particleStates.getOrDefault(idStr, false)
                 )
                         .setDefaultValue(false)
                         .setTooltip(Component.literal("Block particle: " + idStr))
