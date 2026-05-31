@@ -41,12 +41,12 @@ public class ParticleCullingModMenu implements ModMenuApi {
             List<Map.Entry<ResourceKey<ParticleType<?>>, ParticleType<?>>> particles = new ArrayList<>(
                     BuiltInRegistries.PARTICLE_TYPE.entrySet()
             );
-            particles.sort(Comparator.comparing(entry -> entry.getKey().location().getPath()));
+            particles.sort(Comparator.comparing(entry -> entry.getKey().identifier().getPath()));
 
             // Individual toggles (these are visually evaluated at save time and disabled logically if blockAll is active)
             for (Map.Entry<ResourceKey<ParticleType<?>>, ParticleType<?>> entry : particles) {
-                String idStr = entry.getKey().location().toString();
-                String path = entry.getKey().location().getPath();
+                String idStr = entry.getKey().identifier().toString();
+                String path = entry.getKey().identifier().getPath();
                 
                 String name = path.replace('_', ' ');
                 if (!name.isEmpty()) {
